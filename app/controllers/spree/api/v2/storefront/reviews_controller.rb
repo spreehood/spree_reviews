@@ -91,7 +91,7 @@ module Spree
           end
 
           def load_product
-            @product = Spree::Product.friendly.where(id: params[:product_id]).first
+            @product = Spree::Product.friendly.find(params[:product_id])
           end
 
           def load_review
