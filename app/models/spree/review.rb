@@ -42,7 +42,7 @@ class Spree::Review < ActiveRecord::Base
 
   def self.fetch_reviews(user = nil)
     if user
-      Spree::Reviews::Config[:include_unapproved_reviews] ? all : approved.or(user_reviews(user.id))
+      SpreeReviews::Config[:include_unapproved_reviews] ? all : approved.or(user_reviews(user.id))
     else
       default_approval_filter
     end
@@ -64,5 +64,9 @@ class Spree::Review < ActiveRecord::Base
 
   def self.ransackable_attributes(auth_object = nil)
     ["approved", "created_at", "id", "id_value", "ip_address", "locale", "location", "name", "product_id", "rating", "review", "show_identifier", "title", "updated_at", "user_id", 'images']
+  end
+
+  def can_be_deleted?
+    true
   end
 end

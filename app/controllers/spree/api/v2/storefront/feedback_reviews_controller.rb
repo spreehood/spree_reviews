@@ -14,7 +14,7 @@ module Spree
               # TODO: check if it is right to let user disable track_locale, there has been some new changes in recent
               # spree regarding locale and we want to ensure we don't break reviews features in newer spree projects
 
-              @feedback_review.locale = I18n.locale.to_s if Spree::Reviews::Config[:track_locale]
+              @feedback_review.locale = I18n.locale.to_s if SpreeReviews::Config[:track_locale]
               @feedback_review.save
             end
 

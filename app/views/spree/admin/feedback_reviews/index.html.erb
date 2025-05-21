@@ -1,4 +1,5 @@
 <% content_for :page_title do %>
+  <%= page_header_back_button spree.admin_reviews_path, @promotion %>
   <%= Spree.t(:feedback_review_for, review: @review.title) %>
 <% end %>
 
