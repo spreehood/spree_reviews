@@ -5,6 +5,7 @@ module Spree
     module V2
       module Vendor
         class ReviewsController < ResourceController
+          before_action :load_vendor
           before_action :require_vendor_access
 
           # GET /api/v2/vendor/vendors/:vendor_id/reviews
@@ -64,13 +65,15 @@ module Spree
           end
 
           def resource
-            Spree::Review.vendor_reviews(params[:vendor_id])
+            Spree::Review.vendor_reviews(@vendor.id)
+          end
+
+          def load_vendor
+            @vendor = Spree::Vendor.friendly.find(params[:vendor_id])
           end
 
           def require_vendor_access
-            vendor = Spree::Vendor.friendly.find(params[:vendor_id])
-
-            raise CanCan::AccessDenied unless vendor.users.include?(spree_current_user)
+            raise CanCan::AccessDenied unless @vendor.users.include?(spree_current_user)
           end
         end
       end
