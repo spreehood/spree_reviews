@@ -58,6 +58,10 @@ class Spree::Review < ActiveRecord::Base
     end
   end
 
+  def self.vendor_reviews(id)
+    joins(:product).where(spree_products: { vendor_id: id })
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     ["approved", "created_at", "id", "id_value", "ip_address", "locale", "location", "name", "product_id", "rating", "review", "show_identifier", "title", "updated_at", "user_id", 'images']
   end

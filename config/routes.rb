@@ -30,6 +30,12 @@ Spree::Core::Engine.add_routes do
           resources :reviews, controller: :user_reviews, only: %i[index]
         end
       end
+
+      namespace :vendor do
+        resources :vendors, only: [] do
+          resources :reviews, only: [:index, :show, :update, :destroy]
+        end
+      end
     end
   end
 end

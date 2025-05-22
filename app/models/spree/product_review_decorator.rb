@@ -1,6 +1,6 @@
 # Add access to reviews/ratings to the product model
 module Spree
-  module ProductDecorator
+  module ProductReviewDecorator
     def self.prepended(base)
       base.has_many :reviews
     end
