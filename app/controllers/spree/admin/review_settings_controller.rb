@@ -1,6 +1,6 @@
 module Spree
   module Admin
-    class ReviewSettingsController < ResourceController
+    class ReviewSettingsController < Spree::Admin::BaseController
       def update
         preference_params.each do |name, value|
           integer_prefs = [:preview_size, :paginate_size]
