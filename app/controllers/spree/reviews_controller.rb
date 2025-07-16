@@ -21,7 +21,7 @@ module Spree
       @review.product = @product
       @review.user = spree_current_user if spree_user_signed_in?
       @review.ip_address = request.remote_ip
-      @review.locale = I18n.locale.to_s if Spree::Reviews::Config[:track_locale]
+      @review.locale = I18n.locale.to_s if SpreeReviews::Config[:track_locale]
 
       authorize! :create, @review
       if @review.save
@@ -48,7 +48,7 @@ module Spree
 
     def init_pagination
       @pagination_page = params[:page].present? ? params[:page].to_i : 1
-      @pagination_per_page = params[:per_page].present? ? params[:per_page].to_i : Spree::Reviews::Config[:paginate_size]
+      @pagination_per_page = params[:per_page].present? ? params[:per_page].to_i : SpreeReviews::Config[:paginate_size]
     end
   end
 end
