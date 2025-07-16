@@ -5,11 +5,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-spree_version = '>= 4.5'
+spree_version = '>= 5.0.3'
 gem 'spree', spree_version
-gem 'spree_auth_devise', spree_version
 gem 'rails-controller-testing'
-gem 'spree_multi_vendor', github: 'spreehood/spree_multi_vendor'
 
 if ENV['DB'] == 'mysql'
   gem 'mysql2'

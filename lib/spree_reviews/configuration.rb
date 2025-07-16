@@ -1,5 +1,5 @@
-module Spree
-  class ReviewSetting < Preferences::Configuration
+module SpreeReviews
+  class Configuration < Spree::Preferences::Configuration
     # Include non-approved reviews in (public) listings.
     preference :include_unapproved_reviews, :boolean, default: false
 
@@ -27,6 +27,15 @@ module Spree
 
     def stars
       5
+    end
+
+    def load_preferences
+      stored_prefs = Spree::Preference.where("key LIKE 'spree_reviews/config/%'")
+      
+      stored_prefs.each do |pref|
+        preference_name = pref.key.gsub('spree_reviews/config/', '')
+        self[preference_name] = pref.value if respond_to?("#{preference_name}=")
+      end
     end
   end
 end

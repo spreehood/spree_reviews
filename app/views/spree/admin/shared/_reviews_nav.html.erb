@@ -1,0 +1,13 @@
+<% reviews_active = %[reviews review_settings].include?(controller_name) || @order %>
+
+<% if can?(:manage, Spree::Review) || can?(:manage, Spree::ReviewSetting) %>
+  <% reviews_label = Spree.t(:reviews) %>
+  
+  <%= nav_item(reviews_label.html_safe, spree.admin_reviews_path, icon: 'stars', active: reviews_active) %>
+  
+  <% if reviews_active %>
+    <ul class="nav-submenu">
+        <%= nav_item(Spree.t('spree_reviews.review_settings'), spree.edit_admin_review_settings_path) %>
+    </ul>
+  <% end %>
+<% end %>

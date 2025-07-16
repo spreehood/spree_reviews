@@ -24,10 +24,10 @@ class Spree::Review < ActiveRecord::Base
   scope :localized, ->(lc) { where('spree_reviews.locale = ?', lc) }
   scope :most_recent_first, -> { order('spree_reviews.created_at DESC') }
   scope :oldest_first, -> { reorder('spree_reviews.created_at ASC') }
-  scope :preview, -> { limit(Spree::Reviews::Config[:preview_size]).oldest_first }
+  scope :preview, -> { limit(SpreeReviews::Config[:preview_size]).oldest_first }
   scope :approved, -> { where(approved: true) }
   scope :not_approved, -> { where(approved: false) }
-  scope :default_approval_filter, -> { Spree::Reviews::Config[:include_unapproved_reviews] ? all : approved }
+  scope :default_approval_filter, -> { SpreeReviews::Config[:include_unapproved_reviews] ? all : approved }
   scope :user_reviews, ->(user_id) { where('spree_reviews.user_id = ?', user_id) }
 
   def feedback_stars
@@ -42,7 +42,7 @@ class Spree::Review < ActiveRecord::Base
 
   def self.fetch_reviews(user = nil)
     if user
-      Spree::Reviews::Config[:include_unapproved_reviews] ? all : approved.or(user_reviews(user.id))
+      SpreeReviews::Config[:include_unapproved_reviews] ? all : approved.or(user_reviews(user.id))
     else
       default_approval_filter
     end
@@ -64,5 +64,9 @@ class Spree::Review < ActiveRecord::Base
 
   def self.ransackable_attributes(auth_object = nil)
     ["approved", "created_at", "id", "id_value", "ip_address", "locale", "location", "name", "product_id", "rating", "review", "show_identifier", "title", "updated_at", "user_id", 'images']
+  end
+
+  def can_be_deleted?
+    true
   end
 end

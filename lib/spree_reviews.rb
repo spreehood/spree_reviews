@@ -1,17 +1,18 @@
-require 'spree_core'
+
+require 'spree'
 require 'spree_extension'
-require 'spree_backend'
+require 'spree_reviews/configuration'
 require 'spree_reviews/engine'
 require 'spree_reviews/version'
-require 'deface'
-require 'sass/rails'
 
-module Spree
-  module Reviews
-    module_function
+module SpreeReviews
+  class << self
+    def config
+      @config ||= Configuration.new
+    end
 
-    def config(*)
-      yield(Spree::Reviews::Config)
+    def configure
+      yield config
     end
   end
 end

@@ -1,4 +1,5 @@
 <% content_for :page_title do %>
+  <%= page_header_back_button spree.admin_reviews_path %>
   <%= Spree.t(:editing_review_for_html, link: link_to(@review.product.name, admin_product_path(@review.product))) %>
 <% end %>
 
@@ -16,5 +17,6 @@
       </blockquote>
     </div>
   </div>
-  <%= render 'spree/admin/shared/edit_resource_links' %>
+
+  <%= render "spree/admin/shared/edit_resource_links", f: f %>
 <% end %>

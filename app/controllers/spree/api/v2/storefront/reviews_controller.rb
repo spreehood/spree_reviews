@@ -25,7 +25,7 @@ module Spree
             @review.product = @product
             @review.user = spree_current_user
             @review.ip_address = request.remote_ip
-            @review.locale = I18n.locale.to_s if Spree::Reviews::Config[:track_locale]
+            @review.locale = I18n.locale.to_s if SpreeReviews::Config[:track_locale]
             # TODO: @prakash fix permission
             # authorize! :create, @review
 
@@ -36,7 +36,7 @@ module Spree
             params[:review][:rating].sub!(/\s*[^0-9]*\z/, '') unless params[:review][:rating].blank?
 
             @review.ip_address = request.remote_ip
-            @review.locale = I18n.locale.to_s if Spree::Reviews::Config[:track_locale]
+            @review.locale = I18n.locale.to_s if SpreeReviews::Config[:track_locale]
 
             if @review.user == spree_current_user && @review.update(review_params)
               render_serialized_payload {serialize_resource(@review)}
